@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>    
+        <div class="row" th:fragment="forms-MCUconnect">
+            <div id="MCUconnectForms" class="col-md-10">
+                <form id="connectingToMCUForm" action="/api/connectingToMCU" method="POST" class="row g-3" th:object="${serialPortSettings}">
+                    <div class="col-sm-12 col-md-6">
+                    <label class="form-label">Serial port name</label>
+                    <select class="form-select " required th:field="*{portName}">
+                        <option th:each="name : ${serialPortNames}" th:value="${name}" th:text="${name}"></option>
+                    </select>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <label class="form-label">data rate, bps</label>
+                        <select class="form-select " th:field="*{baudRate}">
+                            <option value="9600">9600</option>
+                            <option value="19200">19200</option>
+                            <option value="38400">38400</option>
+                            <option value="57600">57600</option>
+                            <option value="115200">115200</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <label class="form-label">stop bits</label>
+                        <select class="form-select " name="stopBits" th:object="${serialPortSettings.receiveStopBits()}">
+                            <option th:each="stopBits : ${serialPortStopBitsMap}" th:value="${stopBits.key}" th:text="${stopBits.value}"></option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <label class="form-label" >parity</label>
+                        <select class="form-select " name="parity" th:object="${serialPortSettings.receiveParity()}">
+                            <option th:each="parity : ${serialPortParityMap}" th:value="${parity.key}" th:text="${parity.value}"></option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <label class="form-label">data bits</label>
+                        <input type="number" min="5" max="8" class="form-control" th:field="*{dataBits}" required>
+                    </div>
+                    <div class="col-sm-12 col-md-12 text-center">
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? ' d-none' : ''">connect</button>
+                    </div>
+                </form>
+                <form id="disconnectingFromMCUForm" action="/api/disconnectingFromMCU" method="POST" class="row g-3">
+                    <div class="col-sm-12 col-md-12 text-center">
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? '' : ' d-none'">disconnect</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md">
+                <form id="blink" action="" method="POST" class="row my-4">
+                    <div class="col-sm-12 col-md-12 .mx-auto">
+                        <button type="submit" class="w-100 btn btn-secondary">blink</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+  </body>
+</html>

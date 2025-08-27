@@ -1,0 +1,61 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  min-width: 320px;     /*min-width: 1200px;*/
+  /* font-family: "OpenSans", sans-serif; */
+  font-weight: 400;
+}
+
+:root{
+  --gap: 30px;
+}
+
+/* glob */
+.list-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.btn-reset {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
+
+.container {
+  max-width: 1200px;  /* width: 1200px;*/
+  width: 100%;        /* adaptive*/
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: coral;
+}
+
+.home {
+  background-color: olive;
+}

@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>21</java.version>
 		<junit.version>5.13.0</junit.version>
+		<serialComm.version>2.11.0</serialComm.version>	
 	</properties>
 	<dependencies>
 		<!-- Spring and Spring Boot dependencies -->
@@ -68,14 +69,7 @@
 			<artifactId>log4j-spring-boot</artifactId>
 		</dependency>
 
-		<!-- Databases - Uses H2 by default -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- test -->
+			<!-- test -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -89,6 +83,21 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- core oscilloscpoe -->
+		<dependency>
+            <groupId>com.fazecast</groupId>
+            <artifactId>jSerialComm</artifactId>
+            <version>${serialComm.version}</version>
+        </dependency>
+
+		<!-- Databases - Uses H2 by default -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- utils -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
