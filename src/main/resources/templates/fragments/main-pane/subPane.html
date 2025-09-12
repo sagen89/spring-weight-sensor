@@ -6,7 +6,7 @@
                 <form id="connectingToMCUForm" action="/api/connectingToMCU" method="POST" class="row g-3" th:object="${serialPortSettings}">
                     <div class="col-sm-12 col-md-6">
                     <label class="form-label">Serial port name</label>
-                    <select class="form-select " required th:field="*{portName}">
+                    <select id="portNameSelection" class="form-select " required th:field="*{portName}">
                         <option th:each="name : ${serialPortNames}" th:value="${name}" th:text="${name}"></option>
                     </select>
                     </div>
@@ -22,14 +22,16 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <label class="form-label">stop bits</label>
-                        <select class="form-select " name="stopBits" th:object="${serialPortSettings.receiveStopBits()}">
-                            <option th:each="stopBits : ${serialPortStopBitsMap}" th:value="${stopBits.key}" th:text="${stopBits.value}"></option>
+                        <select class="form-select " name="stopBits">
+                            <option th:value="${serialPortSettings.receiveStopBits().getIndex()}" th:text="${serialPortSettings.receiveStopBits().getLable()}"></option>
+                            <option th:each="stopBits : ${serialPortStopBitsMap}" th:value="${stopBits.key}" th:text="${stopBits.value}" th:if="${stopBits.key != serialPortSettings.receiveStopBits().getIndex()}"></option>
                         </select>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <label class="form-label" >parity</label>
-                        <select class="form-select " name="parity" th:object="${serialPortSettings.receiveParity()}">
-                            <option th:each="parity : ${serialPortParityMap}" th:value="${parity.key}" th:text="${parity.value}"></option>
+                        <select class="form-select " name="parity">
+                            <option th:value="${serialPortSettings.receiveParity().getIndex()}" th:text="${serialPortSettings.receiveParity().getLable()}"></option>
+                            <option th:each="parity : ${serialPortParityMap}" th:value="${parity.key}" th:text="${parity.value}" th:if="${parity.key != serialPortSettings.receiveParity().getIndex()}"></option>
                         </select>
                     </div>
                     <div class="col-sm-12 col-md-6">
@@ -37,12 +39,12 @@
                         <input type="number" min="5" max="8" class="form-control" th:field="*{dataBits}" required>
                     </div>
                     <div class="col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? ' d-none' : ''">connect</button>
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? ' d-none' : ''" data-display-target-element="#disconnectingFromMCUForm button">connect</button>
                     </div>
                 </form>
                 <form id="disconnectingFromMCUForm" action="/api/disconnectingFromMCU" method="POST" class="row g-3">
                     <div class="col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? '' : ' d-none'">disconnect</button>
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? '' : ' d-none'" data-display-target-element="#connectingToMCUForm button">disconnect</button>
                     </div>
                 </form>
             </div>

@@ -1,7 +1,5 @@
-package com.mycompany.spring_usboscilloscope.dto.scoping;
+package com.mycompany.spring_usboscilloscope.services;
 
-import com.mycompany.spring_usboscilloscope.services.SerialPortParityType;
-import com.mycompany.spring_usboscilloscope.services.SerialPortStopBitsType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -29,11 +27,11 @@ public class SerialPortSettings {
     private SerialPortParityType parity;
 
     public int getStopBits() {
-        return this.stopBits.getOrder();
+        return this.stopBits.getIndex();
     }
 
     public int getParity() {
-        return this.parity.getOrder();
+        return this.parity.getIndex();
     }
 
     public SerialPortStopBitsType receiveStopBits() {

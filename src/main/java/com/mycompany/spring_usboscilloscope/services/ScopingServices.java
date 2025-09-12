@@ -1,8 +1,5 @@
 package com.mycompany.spring_usboscilloscope.services;
 
-
-import com.mycompany.spring_usboscilloscope.dto.scoping.SerialPortSettings;
-
 public interface ScopingServices {
 
     String[] getSerialPortNames();
@@ -13,10 +10,6 @@ public interface ScopingServices {
 
     boolean isMCUUsed();
 
-    SerialPortSettings getDefaultSerialPortSettings();
-
-    SerialPortSettings getSettingsOfOpenSerialPort();
-
-    
+    SerialPortSettings getMCUConnectSettings();    
     
 }

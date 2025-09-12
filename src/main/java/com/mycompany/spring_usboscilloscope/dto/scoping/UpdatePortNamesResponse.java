@@ -4,10 +4,9 @@ import com.mycompany.spring_usboscilloscope.dto.Response;
 import lombok.Data;
 
 @Data
-public class SerialPortRespounse extends Response {
+public class UpdatePortNamesResponse extends Response {
+
+    private String[] namesToRemove;
     
-    private boolean isClose;
-
-    private SerialPortSettings serialPortSettings;
-
+    private String[] namesToAdd;
 }

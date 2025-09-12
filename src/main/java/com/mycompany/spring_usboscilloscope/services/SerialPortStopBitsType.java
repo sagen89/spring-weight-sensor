@@ -13,7 +13,7 @@ public enum SerialPortStopBitsType {
     private final String lable;
     private final int value;
 
-    public int getOrder() {
+    public int getIndex() {
         return this.value - 1;
     }
 

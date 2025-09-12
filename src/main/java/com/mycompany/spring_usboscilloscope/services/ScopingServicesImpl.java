@@ -1,16 +1,14 @@
 package com.mycompany.spring_usboscilloscope.services;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.springframework.stereotype.Service;
-import com.mycompany.spring_usboscilloscope.dto.scoping.SerialPortSettings;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,48 +23,29 @@ public class ScopingServicesImpl implements ScopingServices {
 
     @Override
     public String[] getSerialPortNames() {
-        for(String name : communicator.getSerialPortNames()) {
-            logger.info(historyMarker, "name: {}", name);
-        }
-        
+        String regexMacOS = "[a-z]+.usbserial.*";
+        String regexWindOS = "COM.*";
+
+        Pattern patternMacOS = Pattern.compile(regexMacOS, Pattern.CASE_INSENSITIVE);
+        Pattern patternWindOS = Pattern.compile(regexWindOS, Pattern.CASE_INSENSITIVE);
+
         return Stream.concat(
                         Arrays.stream(new String[]{""}),
-                        Arrays.stream(communicator.getSerialPortNames()).sorted(Comparator.reverseOrder())
+                        Arrays.stream(communicator.getSerialPortNames())
+                            .filter(name -> patternMacOS.matcher(name).find() || patternWindOS.matcher(name).find())
                     ).toArray(String[]::new);
     }
 
     @Override
-    public SerialPortSettings getDefaultSerialPortSettings() {
-        SerialPortSettings port = new SerialPortSettings();
+    public SerialPortSettings getMCUConnectSettings() {
 
-        port.setPortName("");
-        port.setBaudRate(115200);
-        port.setStopBits(SerialPortStopBitsType.ONE_STOP_BIT);
-        port.setParity(SerialPortParityType.NO_PARITY);
-        port.setDataBits(5);
-
-        return port;
+        return communicator.getSerialPortSettings();
     }
-
-    @Override
-    public SerialPortSettings getSettingsOfOpenSerialPort() {
-        communicator.getSerialPort();
-        SerialPortSettings port = new SerialPortSettings();
-
-        port.setPortName("tty.SVENPS-200BL-JL_SPP");
-        port.setBaudRate(115200);
-        port.setStopBits(SerialPortStopBitsType.ONE_POINT_FIVE_STOP_BITS);
-        port.setParity(SerialPortParityType.MARK_PARITY);
-        port.setDataBits(7);
-
-        return port;
-    }
-
 
     @Override
     public boolean isMCUUsed() {
         
-        return communicator.isPortOpen();
+        return communicator.isCommunicating();
     }
 
     @Override

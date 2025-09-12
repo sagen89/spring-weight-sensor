@@ -1,5 +1,7 @@
 package com.mycompany.spring_usboscilloscope.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -7,9 +9,10 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.spring_usboscilloscope.dto.Response;
-import com.mycompany.spring_usboscilloscope.dto.scoping.SerialPortSettings;
-import com.mycompany.spring_usboscilloscope.dto.scoping.SerialPortRespounse;
+import com.mycompany.spring_usboscilloscope.dto.scoping.MCUconnectRespounse;
+import com.mycompany.spring_usboscilloscope.dto.scoping.UpdatePortNamesResponse;
 import com.mycompany.spring_usboscilloscope.services.ScopingServices;
+import com.mycompany.spring_usboscilloscope.services.SerialPortSettings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,19 +32,63 @@ public class ApiController {
     private final ScopingServices scopingServices;
 
     @GetMapping("/getMCUconnect")
-    public ResponseEntity<SerialPortRespounse> getSerialPort() {
-        logger.info(historyMarker, "Get api/getMCUconnect.");
-        SerialPortSettings sPortSettings = !scopingServices.isMCUUsed() ? 
-            scopingServices.getDefaultSerialPortSettings() : scopingServices.getSettingsOfOpenSerialPort();
-        
-        SerialPortRespounse response = new SerialPortRespounse();
+    public ResponseEntity<MCUconnectRespounse> getMCUconnect() {
+        logger.info(historyMarker, "\nGet api/getMCUconnect.");
+    
+        MCUconnectRespounse response = new MCUconnectRespounse();
         response.setResult(true);
         response.setMsg("");
-        response.setClose(true);
-        response.setSerialPortSettings(sPortSettings);
+        response.setMcuUsed(scopingServices.isMCUUsed());
+        response.setSerialPortSettings(scopingServices.getMCUConnectSettings());
 
         return ResponseEntity.ok(response);
     }
+    
+    @PostMapping("/updatePortNames")
+    public ResponseEntity<UpdatePortNamesResponse> updatePortNames(@RequestBody String[] valueOfoptions) {
+        logger.info(historyMarker, "\nPost api/UpdatePortNamesResponse: {}.", Arrays.toString(valueOfoptions));
+        String[] namesFromServices = scopingServices.getSerialPortNames();
+        String[] namesFromClient = valueOfoptions;
+        Arrays.sort(namesFromServices);
+        Arrays.sort(namesFromClient);
+
+        UpdatePortNamesResponse response = new UpdatePortNamesResponse();
+
+        response.setResult(Arrays.equals(namesFromServices, namesFromClient, String::compareToIgnoreCase));
+        response.setMsg("");
+
+        
+
+        if (response.isResult()) {
+            response.setNamesToRemove(new String[] {});
+            response.setNamesToAdd(new String[] {});
+        } else {
+            response.setNamesToRemove(findMissingItems(namesFromClient, namesFromServices));
+            response.setNamesToAdd(findMissingItems(namesFromServices, namesFromClient));
+        }
+
+        logger.info(historyMarker, "\nPost api/updatePortNames: {}", Arrays.toString(valueOfoptions));
+        logger.info(historyMarker, "\nFrom server: {}", Arrays.toString(scopingServices.getSerialPortNames()));
+        logger.info(historyMarker, "\nadd: {}", Arrays.toString(response.getNamesToAdd()));
+        logger.info(historyMarker, "\nremove: {}", Arrays.toString(response.getNamesToRemove()));
+        
+        
+        return ResponseEntity.ok(response);
+    }
+
+    private String[] findMissingItems(String[] sortedTemplate, String[] sortedInput) {
+        ArrayList<String> differences = new ArrayList<>(Math.min(sortedTemplate.length, sortedInput.length)); 
+        
+        for (String str : sortedTemplate) {
+            int exact = Arrays.binarySearch(sortedInput, str, String::compareToIgnoreCase);
+            if (exact < 0) {
+                differences.add(str);
+            }      
+        }
+    
+        return differences.toArray(new String[0]);
+    }
+
 
     @PostMapping("/connectingToMCU")
     public ResponseEntity<Response> connectingToMCU(

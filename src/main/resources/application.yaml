@@ -15,3 +15,12 @@ spring:
   #      mode: always
   #      schema-locations: classpath:schema.sql
         # data-locations: classpath:TRANSMITTER.sql
+communicator-with-mcu-settings:
+  default-serial-port-settings:
+    name:
+    baudRate: 115200
+    dataBits: 6
+    stopBits: 1
+    parity: 0
+    readTimeout: 10000
+    writeTimeout: 0

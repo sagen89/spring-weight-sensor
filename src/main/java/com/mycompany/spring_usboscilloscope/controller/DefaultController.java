@@ -17,9 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.mycompany.spring_usboscilloscope.config.CommunicationsPort;
-import com.mycompany.spring_usboscilloscope.dto.scoping.SerialPortSettings;
 import com.mycompany.spring_usboscilloscope.services.ScopingServices;
 import com.mycompany.spring_usboscilloscope.services.SerialPortParityType;
+import com.mycompany.spring_usboscilloscope.services.SerialPortSettings;
 import com.mycompany.spring_usboscilloscope.services.SerialPortStopBitsType;
 import lombok.RequiredArgsConstructor;
 
@@ -63,9 +63,8 @@ public class DefaultController {
     }
 
     @ModelAttribute("serialPortSettings")
-    public SerialPortSettings getSerialPortSettings() {
-        return !scopingServices.isMCUUsed() ? 
-             scopingServices.getDefaultSerialPortSettings() : scopingServices.getSettingsOfOpenSerialPort();
+    public SerialPortSettings getMCUConnectSettings() {
+        return scopingServices.getMCUConnectSettings();
     }
 
     @ModelAttribute("isMCUUsed")
@@ -76,7 +75,6 @@ public class DefaultController {
     @RequestMapping("/")
     public String index(Model model) {
         logger.info(historyMarker, "index page");
-        model.addAttribute("communicationsPort", new CommunicationsPort());
         return "index.html";
     }
 
