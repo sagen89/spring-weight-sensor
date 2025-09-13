@@ -1,13 +1,13 @@
-package com.mycompany.spring_usboscilloscope;
+package com.mycompany.spring_weight_sensor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringUsboscilloscopeApplication {
+public class SpringWeightSensorApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(SpringUsboscilloscopeApplication.class, args);
+		SpringApplication.run(SpringWeightSensorApplication.class, args);
 	}
 
 }

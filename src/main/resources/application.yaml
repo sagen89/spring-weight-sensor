@@ -1,7 +1,6 @@
 spring:
-  application.name: spring-usboscilloscope
+  application.name: spring-weight-sensor
   profiles.active: development
-#  profiles.active: production
   jpa:
     defer-datasource-initialization: true
     show-sql: true
@@ -18,9 +17,9 @@ spring:
 communicator-with-mcu-settings:
   default-serial-port-settings:
     name:
-    baudRate: 115200
-    dataBits: 6
+    baudRate: 9600
+    dataBits: 8
     stopBits: 1
     parity: 0
-    readTimeout: 10000
+    readTimeout: 60000
     writeTimeout: 0

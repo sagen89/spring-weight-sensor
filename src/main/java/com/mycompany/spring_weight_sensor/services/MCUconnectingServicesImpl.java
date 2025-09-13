@@ -1,7 +1,6 @@
-package com.mycompany.spring_usboscilloscope.services;
+package com.mycompany.spring_weight_sensor.services;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
@@ -13,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ScopingServicesImpl implements ScopingServices {
+public class MCUconnectingServicesImpl implements MCUconnectingServices {
 
-    private final Logger logger = LogManager.getLogger(ScopingServicesImpl.class);
+    private final Logger logger = LogManager.getLogger(MCUconnectingServicesImpl.class);
 
     private final Marker historyMarker = MarkerManager.getMarker("history");
 
@@ -24,7 +23,7 @@ public class ScopingServicesImpl implements ScopingServices {
     @Override
     public String[] getSerialPortNames() {
         String regexMacOS = "[a-z]+.usbserial.*";
-        String regexWindOS = "COM.*";
+        String regexWindOS = ".*COM[\\d]+";
 
         Pattern patternMacOS = Pattern.compile(regexMacOS, Pattern.CASE_INSENSITIVE);
         Pattern patternWindOS = Pattern.compile(regexWindOS, Pattern.CASE_INSENSITIVE);
@@ -37,7 +36,7 @@ public class ScopingServicesImpl implements ScopingServices {
     }
 
     @Override
-    public SerialPortSettings getMCUConnectSettings() {
+    public SerialPortSettings getSerialPortSettings() {
 
         return communicator.getSerialPortSettings();
     }

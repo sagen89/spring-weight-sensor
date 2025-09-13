@@ -5,16 +5,16 @@ const classForHidingElement = "d-none";
 const portNameSelection = document.getElementById("portNameSelection");
 portNameSelection.addEventListener("click", handlePortNameSelection);
 
-const MCUconnectTabForm = document.getElementById("MCUconnectTabForm");
-MCUconnectTabForm.addEventListener("submit", async function(event) {
+const serialPortTabForm = document.getElementById("serialPortTabForm");
+serialPortTabForm.addEventListener("submit", async function(event) {
             handleTubFormSubmit(event).
             then(response => {
                 if (response === null) {
                     return;
                 }
                 const mcuUsed = response["mcuUsed"];
-                var btnConnect = document.querySelector("#connectingToMCUForm button");
-                var btnDissconnect = document.querySelector("#disconnectingFromMCUForm button");
+                var btnConnect = document.querySelector("#connectingToSerialPortForm button");
+                var btnDissconnect = document.querySelector("#disconnectingFromSerialPortForm button");
 
                 btnConnect.classList.remove(classForHidingElement);
                 btnDissconnect.classList.remove(classForHidingElement);
@@ -28,12 +28,8 @@ MCUconnectTabForm.addEventListener("submit", async function(event) {
     }
 );
 
-const connectingToMCUForm = document.getElementById('connectingToMCUForm');
-// connectingToMCUForm.addEventListener('submit', handleFormSubmitWhitHiddenButton);
-
-
-const MCUconnectForms = document.getElementById("MCUconnectForms");
-MCUconnectForms.addEventListener('submit', handleSeveralFormsSubmit);
+const serialPortForms = document.getElementById("serialPortForms");
+serialPortForms.addEventListener('submit', handleSeveralFormsSubmit);
 
 async function handlePortNameSelection(event) {
     var target = event.target;
@@ -91,7 +87,7 @@ async function handleTubFormSubmit(event) {
     
     data, objsForForms = null;
     return response;
-    // document.querySelector(document.getElementById("connectingToMCUForm").getElementsByTagName("button")[0].dataset["displayTargetElement"]);
+    // document.querySelector(document.getElementById("connectingToSerialPortForm").getElementsByTagName("button")[0].dataset["displayTargetElement"]);
 
 }
 

@@ -1,4 +1,4 @@
-package com.mycompany.spring_usboscilloscope.services;
+package com.mycompany.spring_weight_sensor.services;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

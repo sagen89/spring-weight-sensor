@@ -1,6 +1,7 @@
-package com.mycompany.spring_usboscilloscope.dto.scoping;
+package com.mycompany.spring_weight_sensor.dto.mcuconnecting;
 
-import com.mycompany.spring_usboscilloscope.dto.Response;
+import com.mycompany.spring_weight_sensor.dto.Response;
+
 import lombok.Data;
 
 @Data

@@ -1,4 +1,4 @@
-package com.mycompany.spring_usboscilloscope.config;
+package com.mycompany.spring_weight_sensor.config;
 
 import lombok.Data;
 

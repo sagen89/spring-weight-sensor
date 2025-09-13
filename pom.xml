@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mycompany</groupId>
-	<artifactId>spring-usboscilloscope</artifactId>
+	<artifactId>spring-weight-sensor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-usboscilloscope</name>
+	<name>spring-weight-sensor</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -28,7 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
-		<junit.version>5.13.0</junit.version>
+		<junit.version>5.11.4</junit.version>
 		<serialComm.version>2.11.0</serialComm.version>	
 	</properties>
 	<dependencies>
@@ -83,7 +83,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- core oscilloscpoe -->
+		<!-- core -->
 		<dependency>
             <groupId>com.fazecast</groupId>
             <artifactId>jSerialComm</artifactId>

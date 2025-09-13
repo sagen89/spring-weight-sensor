@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>    
-        <div class="row" th:fragment="forms-MCUconnect">
-            <div id="MCUconnectForms" class="col-md-10">
-                <form id="connectingToMCUForm" action="/api/connectingToMCU" method="POST" class="row g-3" th:object="${serialPortSettings}">
+        <div class="row" th:fragment="forms-SerialPortConnect">
+            <div id="serialPortForms" class="col-md-10">
+                <form id="connectingToSerialPortForm" action="/api/connectingToSerialPort" method="POST" class="row g-3" th:object="${serialPortSettings}">
                     <div class="col-sm-12 col-md-6">
                     <label class="form-label">Serial port name</label>
                     <select id="portNameSelection" class="form-select " required th:field="*{portName}">
@@ -39,12 +39,12 @@
                         <input type="number" min="5" max="8" class="form-control" th:field="*{dataBits}" required>
                     </div>
                     <div class="col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? ' d-none' : ''" data-display-target-element="#disconnectingFromMCUForm button">connect</button>
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? ' d-none' : ''" data-display-target-element="#disconnectingFromSerialPortForm button">connect</button>
                     </div>
                 </form>
-                <form id="disconnectingFromMCUForm" action="/api/disconnectingFromMCU" method="POST" class="row g-3">
+                <form id="disconnectingFromSerialPortForm" action="/api/disconnectingFromSerialPort" method="POST" class="row g-3">
                     <div class="col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? '' : ' d-none'" data-display-target-element="#connectingToMCUForm button">disconnect</button>
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? '' : ' d-none'" data-display-target-element="#connectingToSerialPortForm button">disconnect</button>
                     </div>
                 </form>
             </div>

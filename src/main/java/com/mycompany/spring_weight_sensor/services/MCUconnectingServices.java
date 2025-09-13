@@ -1,6 +1,6 @@
-package com.mycompany.spring_usboscilloscope.services;
+package com.mycompany.spring_weight_sensor.services;
 
-public interface ScopingServices {
+public interface MCUconnectingServices {
 
     String[] getSerialPortNames();
 
@@ -10,6 +10,6 @@ public interface ScopingServices {
 
     boolean isMCUUsed();
 
-    SerialPortSettings getMCUConnectSettings();    
+    SerialPortSettings getSerialPortSettings();    
     
 }

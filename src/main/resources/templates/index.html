@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>usb oscilloscope</title>
+    <title>weight sensor</title>
     <link rel="stylesheet" href="/assets/css/normalize.css">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <script src="/assets/js/bootstrap.min.js" defer></script>
@@ -14,7 +14,7 @@
     <div class="container">
       <nav class="navbar navbar-expand-lg nav-tabs" aria-label="Application navigation">
         <a class="navbar-brand" href="#">
-            <img src="assets/img/oscilloscope.png" alt="Bootstrap" width="50">
+            <img src="assets/img/weight-sensor-icon.png" alt="Bootstrap" width="45">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
           <span class="navbar-toggler-icon"></span>
@@ -23,22 +23,17 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main-tab-pane" type="button" role="tab" aria-controls="main-tab-pane" aria-selected="true">
-                  Oscilloscope
+                  MCU-connect
                 </button>
               </li>
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="sub-tab" data-bs-toggle="tab" data-bs-target="#sub-tab-pane" type="button" role="tab" aria-controls="sub-tab-pane" aria-selected="false">
-                  Settings
+                  Weight sensor
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="subOne-tab" data-bs-toggle="tab" data-bs-target="#subOne-tab-pane" type="button" role="tab" aria-controls="subOne-tab-pane" aria-selected="false">
-                  Measuring
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="subTwo-tab" data-bs-toggle="tab" data-bs-target="#subTwo-tab-pane" type="button" role="tab" aria-controls="subTwo-tab-pane" aria-selected="false" disabled>
-                  Induction Motor Faults detection
+                <button class="nav-link" id="subOne-tab" data-bs-toggle="tab" data-bs-target="#subOne-tab-pane" type="button" role="tab" aria-controls="subOne-tab-pane" aria-selected="false" disabled>
+                  Electromagnetic brake sensor
                 </button>
               </li>
           </ul>
@@ -58,20 +53,20 @@
         <div class="col-md-2">
           <ul class="nav nav-underline flex-column mb-auto" role="tablist" aria-label="Main navigation">
             <li class="nav-item" role="presentation">
-              <form id="MCUconnectTabForm" action="/api/getMCUconnect" method="GET">
+              <form id="serialPortTabForm" action="/api/getSerialPortConnect" method="GET">
                 <button class="nav-link active" id="sub-mainTab" data-bs-toggle="tab" data-bs-target="#sub-mainTab-pane" type="submit" role="tab" aria-controls="sub-mainTab-pane" aria-selected="true">
-                  MCU-connect
+                  Serial port
                 </button>
               </form>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="subOne-mainTab" data-bs-toggle="tab" data-bs-target="#subOne-mainTab-pane" type="button" role="tab" aria-controls="subOne-mainTab-pane" aria-selected="false">
-                Channel
+                Wi-Fi
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="subTwo-mainTab" data-bs-toggle="tab" data-bs-target="#subTwo-mainTab-pane" type="button" role="tab" aria-controls="subTwo-mainTab-pane" aria-selected="false">
-                Display
+                Bluetooth
               </button>
             </li>
           </ul>
@@ -79,18 +74,12 @@
         <div class="col-md">
           <div class="tab-content">
             <div class="tab-pane fade show active" id="sub-mainTab-pane" role="tabpanel" aria-labelledby="sub-mainTab" tabindex="0">
-                <div th:insert="~{fragments/main-pane/subPane :: forms-MCUconnect}"></div>
+                <div th:insert="~{fragments/main-pane/subPane :: forms-SerialPortConnect}"></div>
             </div>
             <div class="tab-pane fade" id="subOne-mainTab-pane" role="tabpanel" aria-labelledby="subOne-mainTab" tabindex="0">
                 <div class="row">
                   <div class="col-md-10">subOne main</div>
                   <div class="col-md">subOne rigth</div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="subTwo-mainTab-pane" role="tabpanel" aria-labelledby="subTwo-mainTab" tabindex="0">
-                <div class="row">
-                  <div class="col-md-10">subTwo main</div>
-                  <div class="col-md">subTwo rigth</div>
                 </div>
             </div>
           </div>
@@ -109,13 +98,6 @@
         <div class="col-md-2">7</div>
         <div class="col-md">8</div>
         <div class="col-md-2">9</div>
-      </div>
-    </div>
-    <div class="tab-pane fade" id="subTwo-tab-pane" role="tabpanel" aria-labelledby="subTwo-tab" tabindex="0">
-      <div class="row">
-        <div class="col-md-2">10</div>
-        <div class="col-md">11</div>
-        <div class="col-md-2">12</div>
       </div>
     </div>
     <script src="/assets/js/scripts.js" defer></script>

@@ -1,4 +1,4 @@
-package com.mycompany.spring_usboscilloscope.controller;
+package com.mycompany.spring_weight_sensor.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,11 +8,13 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.mycompany.spring_usboscilloscope.dto.Response;
-import com.mycompany.spring_usboscilloscope.dto.scoping.MCUconnectRespounse;
-import com.mycompany.spring_usboscilloscope.dto.scoping.UpdatePortNamesResponse;
-import com.mycompany.spring_usboscilloscope.services.ScopingServices;
-import com.mycompany.spring_usboscilloscope.services.SerialPortSettings;
+
+import com.mycompany.spring_weight_sensor.dto.Response;
+import com.mycompany.spring_weight_sensor.dto.mcuconnecting.SerialPortConnectRespounse;
+import com.mycompany.spring_weight_sensor.dto.mcuconnecting.UpdatePortNamesResponse;
+import com.mycompany.spring_weight_sensor.services.MCUconnectingServices;
+import com.mycompany.spring_weight_sensor.services.SerialPortSettings;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,17 +31,17 @@ public class ApiController {
     private final Marker historyMarker = MarkerManager.getMarker("history");
     private final Marker errorMarker = MarkerManager.getMarker("error");
 
-    private final ScopingServices scopingServices;
+    private final MCUconnectingServices mcuConnectingServices;
 
-    @GetMapping("/getMCUconnect")
-    public ResponseEntity<MCUconnectRespounse> getMCUconnect() {
-        logger.info(historyMarker, "\nGet api/getMCUconnect.");
+    @GetMapping("/getSerialPortConnect")
+    public ResponseEntity<SerialPortConnectRespounse> getSerialPortConnect() {
+        logger.info(historyMarker, "\nGet api/getSerialPortConnect.");
     
-        MCUconnectRespounse response = new MCUconnectRespounse();
+        SerialPortConnectRespounse response = new SerialPortConnectRespounse();
         response.setResult(true);
         response.setMsg("");
-        response.setMcuUsed(scopingServices.isMCUUsed());
-        response.setSerialPortSettings(scopingServices.getMCUConnectSettings());
+        response.setMcuUsed(mcuConnectingServices.isMCUUsed());
+        response.setSerialPortSettings(mcuConnectingServices.getSerialPortSettings());
 
         return ResponseEntity.ok(response);
     }
@@ -47,7 +49,7 @@ public class ApiController {
     @PostMapping("/updatePortNames")
     public ResponseEntity<UpdatePortNamesResponse> updatePortNames(@RequestBody String[] valueOfoptions) {
         logger.info(historyMarker, "\nPost api/UpdatePortNamesResponse: {}.", Arrays.toString(valueOfoptions));
-        String[] namesFromServices = scopingServices.getSerialPortNames();
+        String[] namesFromServices = mcuConnectingServices.getSerialPortNames();
         String[] namesFromClient = valueOfoptions;
         Arrays.sort(namesFromServices);
         Arrays.sort(namesFromClient);
@@ -57,21 +59,13 @@ public class ApiController {
         response.setResult(Arrays.equals(namesFromServices, namesFromClient, String::compareToIgnoreCase));
         response.setMsg("");
 
-        
-
         if (response.isResult()) {
             response.setNamesToRemove(new String[] {});
             response.setNamesToAdd(new String[] {});
         } else {
             response.setNamesToRemove(findMissingItems(namesFromClient, namesFromServices));
             response.setNamesToAdd(findMissingItems(namesFromServices, namesFromClient));
-        }
-
-        logger.info(historyMarker, "\nPost api/updatePortNames: {}", Arrays.toString(valueOfoptions));
-        logger.info(historyMarker, "\nFrom server: {}", Arrays.toString(scopingServices.getSerialPortNames()));
-        logger.info(historyMarker, "\nadd: {}", Arrays.toString(response.getNamesToAdd()));
-        logger.info(historyMarker, "\nremove: {}", Arrays.toString(response.getNamesToRemove()));
-        
+        }        
         
         return ResponseEntity.ok(response);
     }
@@ -90,24 +84,24 @@ public class ApiController {
     }
 
 
-    @PostMapping("/connectingToMCU")
-    public ResponseEntity<Response> connectingToMCU(
+    @PostMapping("/connectingToSerialPort")
+    public ResponseEntity<Response> connectingToSerialPort(
             @RequestBody SerialPortSettings serialPortParameters) {
-        logger.info(historyMarker, "Post api/connectingToMCU; {}", serialPortParameters);
-        scopingServices.connectingToMCU(serialPortParameters);
+        logger.info(historyMarker, "Post api/connectingToSerialPort; {}", serialPortParameters);
+        mcuConnectingServices.connectingToMCU(serialPortParameters);
         Response response = new Response();
-        response.setResult(scopingServices.isMCUUsed());
+        response.setResult(mcuConnectingServices.isMCUUsed());
         response.setMsg("");
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/disconnectingFromMCU")
-    public ResponseEntity<Response> disconnectingFromMCU() {
-        logger.info(historyMarker, "Post api/disconnectingFromMCU");
+    @PostMapping("/disconnectingFromSerialPort")
+    public ResponseEntity<Response> disconnectingFromSerialPort() {
+        logger.info(historyMarker, "Post api/disconnectingFromSerialPort");
 
-        scopingServices.disconnectingFromMCU();
+        mcuConnectingServices.disconnectingFromMCU();
         Response response = new Response();
-        response.setResult(!scopingServices.isMCUUsed());
+        response.setResult(!mcuConnectingServices.isMCUUsed());
         return ResponseEntity.ok(response);
     }
 
