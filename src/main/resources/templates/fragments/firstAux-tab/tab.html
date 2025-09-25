@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div class="row g-1 g-lg-3" th:fragment="tab-weightSensor">
+        <div class="col-12 col-lg-auto">
+            <ul class="nav nav-underline flex-lg-column me-lg-3" role="tablist" aria-label="Main navigation">
+                <li class="nav-item" role="presentation">
+                    <form id="weighting-tab" action="/api/getDataForWeightingTab" method="GET">
+                        <button class="nav-link active" id="firstAuxPane-firstChildTab" data-bs-toggle="tab"
+                            data-bs-target="#firstAuxPane-firstChildTab-pane" type="submit" role="tab"
+                            aria-controls="firstAuxPane-firstChildTab-pane" aria-selected="true">
+                            Weighting
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="firstAuxPane-secondChildTab" data-bs-toggle="tab"
+                        data-bs-target="#firstAuxPane-secondChildTab-pane" type="button" role="tab"
+                        aria-controls="firstAuxPane-secondChildTab-pane" aria-selected="false" disabled>
+                        Settings
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-lg">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="firstAuxPane-firstChildTab-pane" role="tabpanel"
+                    aria-labelledby="firstAuxPane-firstChildTab" tabindex="0">
+                    <div th:insert="~{fragments/firstAux-tab/firstChildTab :: childTab-weightingPanel}"></div>
+                </div>
+                <div class="tab-pane fade" id="firstAuxPane-secondChildTab-pane" role="tabpanel"
+                    aria-labelledby="firstAuxPane-secondChildTab" tabindex="0">
+                     <!-- <div th:insert="~{fragments/firstAux-tab/secondChildTab :: childTab}"></div>  -->
+                </div>
+                <div class="tab-pane fade" id="firstAuxPane-thirdChildTab-pane" role="tabpanel"
+                    aria-labelledby="firstAuxPane-thirdChildTab" tabindex="0">
+                    <!-- <div th:insert="~{fragments/firstAux-tab/thirdChildTab :: childTab}"></div>  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

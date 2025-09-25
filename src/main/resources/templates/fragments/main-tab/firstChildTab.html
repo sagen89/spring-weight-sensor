@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>    
+        <div class="row g-1 g-lg-3" th:fragment="childTab-serialPortPanel">
+            <div id="serialPortForms" class="col-12 col-lg-9">
+                <form id="connectingToSerialPortForm" action="/api/connectingToSerialPort" method="POST" class="row g-1 g-lg-3" th:object="${serialPortSettings}">
+                    <div class="col-12 col-lg-6 form-floating">
+                        <select id="portNameSelection" class="form-select" required th:field="*{portName}">
+                            <option th:each="name : ${serialPortNames}" th:value="${name}" th:text="${name}"></option>
+                        </select>
+                        <label class="col-form-label-md" for="portNameSelection">Serial port name</label>
+                    </div>
+                    <div class="col-12 col-lg-6 form-floating">
+                        <select id="dataRateSelection" class="form-select " th:field="*{baudRate}">
+                            <option value="9600">9600</option>
+                            <option value="19200">19200</option>
+                            <option value="38400">38400</option>
+                            <option value="57600">57600</option>
+                            <option value="115200">115200</option>
+                        </select>
+                        <label class="col-form-label-md" for="dataRateSelection">Data rate, bps</label>
+                    </div>
+                    <div class="col-12 col-lg-6 form-floating">
+                        <select id="stopBitsSelection" class="form-select " name="stopBits">
+                            <option th:value="${serialPortSettings.receiveStopBits().getIndex()}" th:text="${serialPortSettings.receiveStopBits().getLable()}"></option>
+                            <option th:each="stopBits : ${serialPortStopBitsMap}" th:value="${stopBits.key}" th:text="${stopBits.value}" th:if="${stopBits.key != serialPortSettings.receiveStopBits().getIndex()}"></option>
+                        </select>
+                        <label class="col-form-label-md" for="stopBitsSelection">Stop bits</label>
+                    </div>
+                    <div class="col-12 col-lg-6 form-floating">
+                        <select id="paritySelection" class="form-select " name="parity">
+                            <option th:value="${serialPortSettings.receiveParity().getIndex()}" th:text="${serialPortSettings.receiveParity().getLable()}"></option>
+                            <option th:each="parity : ${serialPortParityMap}" th:value="${parity.key}" th:text="${parity.value}" th:if="${parity.key != serialPortSettings.receiveParity().getIndex()}"></option>
+                        </select>
+                        <label class="col-form-label-md" for="paritySelection">Parity</label>
+                    </div>
+                    <div class="col-12 col-lg-6 form-floating">
+                        <input type="number" min="5" max="8" id="dataBitsInput" class="form-control" th:field="*{dataBits}" required>
+                        <label class="col-form-label-md" for="dataBitsInput">Data bits</label>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? ' d-none' : ''" data-display-target-element="#disconnectingFromSerialPortForm button">Connect</button>
+                    </div>
+                </form>
+                <form id="disconnectingFromSerialPortForm" action="/api/disconnectingFromSerialPort" method="POST" class="row g-1 g-lg-3">
+                    <div class="col-sm-12 col-md-12 text-center">
+                        <button type="submit" class="w-100 btn btn-primary" th:classappend="${isMCUUsed} ? '' : ' d-none'" data-display-target-element="#connectingToSerialPortForm button">Disconnect</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-lg">
+                <div class="row row-cols-2 row-cols-lg-1 g-1 g-lg-3">
+                    <form id="blinkForm" action="api/blink" method="POST" class="col">
+                        <div class="input-group input-group-sm">
+                            <input type="number" min="0" max="10" class="form-control" name="blinkAmount" placeholder="Amount" aria-label="blink amount" aria-describedby="button-blink">
+                            <button id="button-blink" class="btn btn-outline-secondary" type="submit">blink</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+  </body>
+</html>

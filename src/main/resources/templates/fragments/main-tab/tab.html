@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div class="row g-1 g-lg-3" th:fragment="tab-MCUconnect">
+        <div class="col-12 col-lg-auto">
+            <ul class="nav nav-underline flex-lg-column me-lg-3" role="tablist" aria-label="Main navigation">
+                <li class="nav-item" role="presentation">
+                    <form id="serialPort-tab" action="/api/getDataForSerialPortTab" method="GET">
+                        <button class="nav-link active" id="mainTabPane-firstChildTab" data-bs-toggle="tab"
+                            data-bs-target="#mainTabPane-firstChildTab-pane" type="submit" role="tab"
+                            aria-controls="mainTabPane-firstChildTab-pane" aria-selected="true">
+                            Serial port
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="mainTabPane-secondChildTab" data-bs-toggle="tab"
+                        data-bs-target="#mainTabPane-secondChildTab-pane" type="button" role="tab"
+                        aria-controls="mainTabPane-secondChildTab-pane" aria-selected="false" disabled>
+                        Wi-Fi
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="mainTabPane-thirdChildTab" data-bs-toggle="tab"
+                        data-bs-target="#mainTabPane-thirdChildTab-pane" type="button" role="tab"
+                        aria-controls="mainTabPane-thirdChildTab-pane" aria-selected="false" disabled>
+                        Bluetooth
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-lg">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="mainTabPane-firstChildTab-pane" role="tabpanel"
+                    aria-labelledby="mainTabPane-firstChildTab" tabindex="0">
+                    <div th:insert="~{fragments/main-tab/firstChildTab :: childTab-serialPortPanel}"></div>
+                </div>
+                <div class="tab-pane fade" id="mainTabPane-secondChildTab-pane" role="tabpanel"
+                    aria-labelledby="mainTabPane-secondChildTab" tabindex="0">
+                    <!-- <div th:insert="~{fragments/main-tab/secondChildTab :: childTab-}"></div> -->
+                </div>
+                <div class="tab-pane fade" id="mainTabPane-thirdChildTab-pane" role="tabpanel"
+                    aria-labelledby="mainTabPane-thirdChildTab" tabindex="0">
+                    <!-- <div th:insert="~{fragments/main-tab/thirdChildTab :: childTab-}"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

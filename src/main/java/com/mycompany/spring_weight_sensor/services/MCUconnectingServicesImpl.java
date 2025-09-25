@@ -57,4 +57,9 @@ public class MCUconnectingServicesImpl implements MCUconnectingServices {
         communicator.stopCommunicating();
     }
 
+    @Override
+    public boolean blink(int blinkAmount) {
+        return communicator.sendCommandToMCU(CommandsType.BLINK, blinkAmount);
+    }
+
 }

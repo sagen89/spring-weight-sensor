@@ -18,6 +18,4 @@ public enum SerialPortParityType {
     public int getIndex() {
         return this.value;
     }
-
-
 }

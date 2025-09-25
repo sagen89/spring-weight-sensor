@@ -11,5 +11,7 @@ public interface MCUconnectingServices {
     boolean isMCUUsed();
 
     SerialPortSettings getSerialPortSettings();    
+
+    public boolean blink(int durationInSec);
     
 }

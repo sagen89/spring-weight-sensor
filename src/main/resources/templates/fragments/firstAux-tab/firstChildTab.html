@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>    
+        <div class="row g-1 g-lg-3" th:fragment="childTab-weightingPanel">
+            <div class="col-12 col-lg-9">
+                <div id="tester" class="ratio ratio-4x3">
+                </div>
+            </div>
+            <div class="col-12 col-lg">
+               <div class="row row-cols-2 row-cols-lg-1 g-1 g-lg-3">
+                    <form id="weightMeasurementForm" action="/api/measureWeight" method="POST" class="col-12">
+                        <div class="row g-3 g-lg-1 align-items-center">
+                            <div class="col col-lg-12">
+                                <div class="input-group input-group-sm">
+                                    <input type="number" min="1" class="form-control" name="numberOfMeasurements" placeholder="Number of measurements" aria-label="Number of measurements" aria-describedby="button-measureWeight">
+                                    <button id="button-measureWeight" class="btn btn-outline-secondary" type="submit">measure</button>
+                                </div>
+                            </div>
+                            <div class="col-auto ms-lg-auto">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cyclicWeightMeasurementForm" name="cyclically">
+                                    <label class="form-check-label" for="cyclicWeightMeasurementForm">
+                                    Cyclically
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="setOffsetForm" action="/api/setOffset" method="POST" class="col">
+                        <div class="input-group input-group-sm">
+                            <input type="number" min="1" class="form-control" name="numberOfMeasurements" placeholder="Offset" aria-label="set of set" aria-describedby="button-setOffset">
+                            <button id="button-setOffset" class="btn btn-outline-secondary" type="submit">Set offset</button>
+                        </div>
+                    </form>
+                    <form id="setScaleForm" action="/api/setScale" method="POST" class="col">
+                        <div class="input-group input-group-sm">
+                            <input type="number" min="1" class="form-control" name="numberOfMeasurements" placeholder="Scale" aria-label="set of set" aria-describedby="button-setScale">
+                            <button id="button-setScale" class="btn btn-outline-secondary" type="submit">Set scale</button>
+                        </div>
+                    </form>
+               </div>
+            </div>
+        </div>
+  </body>
+</html>

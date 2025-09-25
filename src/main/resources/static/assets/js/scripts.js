@@ -5,8 +5,8 @@ const classForHidingElement = "d-none";
 const portNameSelection = document.getElementById("portNameSelection");
 portNameSelection.addEventListener("click", handlePortNameSelection);
 
-const serialPortTabForm = document.getElementById("serialPortTabForm");
-serialPortTabForm.addEventListener("submit", async function(event) {
+const serialPortTab = document.getElementById("serialPort-tab");
+serialPortTab.addEventListener("submit", async function(event) {
             handleTubFormSubmit(event).
             then(response => {
                 if (response === null) {
@@ -28,8 +28,44 @@ serialPortTabForm.addEventListener("submit", async function(event) {
     }
 );
 
+const mainTab = document.getElementById("main-tab");
+mainTab.addEventListener("click", (event) => { event.preventDefault(); document.getElementById("mainTabPane-firstChildTab").click(); });
+
 const serialPortForms = document.getElementById("serialPortForms");
 serialPortForms.addEventListener('submit', handleSeveralFormsSubmit);
+
+const blinkForms = document.getElementById("blinkForm");
+blinkForms.addEventListener('submit', handleFormSubmit);
+
+const weightMeasurementForm = document.getElementById("weightMeasurementForm");
+weightMeasurementForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    console.log(`Event target: ${JSON.stringify(event.target)}`);
+    
+    sendData(event.target.action, dataFormToDataObj(event.target), event.target.method);
+
+    var x = [];
+    for (var i = 0; i < 500; i ++) {
+        x[i] = Math.random();
+    }
+
+    var trace = {
+        x: x,
+        type: 'histogram',
+    };
+    var data = [trace];
+
+    var layout = {
+        title: {
+        text: 'Responsive to window\'s size!'
+        },
+        font: {size: 18}
+    };
+
+    var config = {responsive: true};
+    var myChart = await Plotly.newPlot('tester', data, layout, config);
+    console.log(myChart);
+})
 
 async function handlePortNameSelection(event) {
     var target = event.target;

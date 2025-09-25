@@ -1,109 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>weight sensor</title>
-    <link rel="stylesheet" href="/assets/css/normalize.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <script src="/assets/js/bootstrap.min.js" defer></script>
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, must-revalidate">
+
+  <title>weight sensor</title>
+  <link rel="stylesheet" href="/assets/css/normalize.css">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/bootstrap.min.js" defer></script>
+  <script src="/assets/js/plotly-3.1.0.min.js" charset="utf-8"></script>
 </head>
-<body data-bs-theme="dark">
+
+<body data-bs-theme="ligh">
   <header>
     <div class="container">
-      <nav class="navbar navbar-expand-lg nav-tabs" aria-label="Application navigation">
+      <nav class="navbar navbar-expand-lg nav-tabs mb-1 mb-lg-3" aria-label="Application navigation">
         <a class="navbar-brand" href="#">
-            <img src="assets/img/weight-sensor-icon.png" alt="Bootstrap" width="45">
+          <img src="assets/img/weight-sensor-icon.png" alt="Bootstrap" width="45">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="col-mdlapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main-tab-pane" type="button" role="tab" aria-controls="main-tab-pane" aria-selected="true">
-                  MCU-connect
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="sub-tab" data-bs-toggle="tab" data-bs-target="#sub-tab-pane" type="button" role="tab" aria-controls="sub-tab-pane" aria-selected="false">
-                  Weight sensor
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="subOne-tab" data-bs-toggle="tab" data-bs-target="#subOne-tab-pane" type="button" role="tab" aria-controls="subOne-tab-pane" aria-selected="false" disabled>
-                  Electromagnetic brake sensor
-                </button>
-              </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main-tab-pane"
+                type="button" role="tab" aria-controls="main-tab-pane" aria-selected="true">
+                MCU-connect
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="firstAux-tab" data-bs-toggle="tab" data-bs-target="#firstAux-tab-pane"
+                type="button" role="tab" aria-controls="firstAux-tab-pane" aria-selected="false">
+                Weight sensor
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="secondAux-tab" data-bs-toggle="tab" data-bs-target="#secondAux-tab-pane"
+                type="button" role="tab" aria-controls="secondAux-tab-pane" aria-selected="false" disabled>
+                Electromagnetic brake sensor
+              </button>
+            </li>
           </ul>
         </div>
-        <button class="btn btn-link nav-link py-2 px-0 px-lg-2 show" id="bd-theme" type="button" aria-label="Toggle theme">
-          <svg class="bi my-1 theme-icon-active" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path>
-            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path>
+        <button class="btn btn-link nav-link py-2 px-0 px-lg-2 show" id="bd-theme" type="button"
+          aria-label="Toggle theme">
+          <svg class="bi my-1 theme-icon-active" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+            fill="currentColor" viewBox="0 0 16 16">
+            <path
+              d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z">
+            </path>
+            <path
+              d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z">
+            </path>
           </svg>
         </button>
       </nav>
     </div>
   </header>
-  <div class="container tab-content mt-3">
+  <div class="container tab-content">
     <div class="tab-pane fade show active" id="main-tab-pane" role="tabpanel" aria-labelledby="main-tab" tabindex="0">
-      <div class="row">
-        <div class="col-md-2">
-          <ul class="nav nav-underline flex-column mb-auto" role="tablist" aria-label="Main navigation">
-            <li class="nav-item" role="presentation">
-              <form id="serialPortTabForm" action="/api/getSerialPortConnect" method="GET">
-                <button class="nav-link active" id="sub-mainTab" data-bs-toggle="tab" data-bs-target="#sub-mainTab-pane" type="submit" role="tab" aria-controls="sub-mainTab-pane" aria-selected="true">
-                  Serial port
-                </button>
-              </form>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="subOne-mainTab" data-bs-toggle="tab" data-bs-target="#subOne-mainTab-pane" type="button" role="tab" aria-controls="subOne-mainTab-pane" aria-selected="false">
-                Wi-Fi
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="subTwo-mainTab" data-bs-toggle="tab" data-bs-target="#subTwo-mainTab-pane" type="button" role="tab" aria-controls="subTwo-mainTab-pane" aria-selected="false">
-                Bluetooth
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md">
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="sub-mainTab-pane" role="tabpanel" aria-labelledby="sub-mainTab" tabindex="0">
-                <div th:insert="~{fragments/main-pane/subPane :: forms-SerialPortConnect}"></div>
-            </div>
-            <div class="tab-pane fade" id="subOne-mainTab-pane" role="tabpanel" aria-labelledby="subOne-mainTab" tabindex="0">
-                <div class="row">
-                  <div class="col-md-10">subOne main</div>
-                  <div class="col-md">subOne rigth</div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div th:insert="~{fragments/main-tab/tab :: tab-MCUconnect}"></div>
     </div>
-    <div class="tab-pane fade" id="sub-tab-pane" role="tabpanel" aria-labelledby="sub-tab" tabindex="0">
-      <div class="row">
-        <div class="col-md-2">4</div>
-        <div class="col-md">5</div>
-        <div class="col-md-2">6</div>
-      </div>
+    <div class="tab-pane fade" id="firstAux-tab-pane" role="tabpanel" aria-labelledby="firstAux-tab" tabindex="0">
+      <div th:insert="~{fragments/firstAux-tab/tab :: tab-weightSensor}"></div>
     </div>
-    <div class="tab-pane fade" id="subOne-tab-pane" role="tabpanel" aria-labelledby="subOne-tab" tabindex="0">
-      <div class="row">
-        <div class="col-md-2">7</div>
-        <div class="col-md">8</div>
-        <div class="col-md-2">9</div>
-      </div>
+    <div class="tab-pane fade" id="secondAux-tab-pane" role="tabpanel" aria-labelledby="secondAux-tab" tabindex="0">
+      <!-- <div th:insert="~{fragments/secondAux-tab/tab :: tab-}"></div> -->
     </div>
     <script src="/assets/js/scripts.js" defer></script>
   </div>
   <script th:inline="javascript">
-    
+
   </script>
 </body>
+
 </html>
