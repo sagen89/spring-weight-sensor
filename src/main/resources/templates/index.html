@@ -6,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-store, must-revalidate">
 
-  <title>weight sensor</title>
+  <title>oscilloscope</title>
   <link rel="stylesheet" href="/assets/css/normalize.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <script src="/assets/js/bootstrap.min.js" defer></script>
   <script src="/assets/js/plotly-3.1.0.min.js" charset="utf-8"></script>
 </head>
 
-<body data-bs-theme="ligh">
+<body data-bs-theme="dark">
   <header>
     <div class="container">
       <nav class="navbar navbar-expand-lg nav-tabs mb-1 mb-lg-3" aria-label="Application navigation">
         <a class="navbar-brand" href="#">
-          <img src="assets/img/weight-sensor-icon.png" alt="Bootstrap" width="45">
+          <img src="assets/img/oscilloscope-icon.png" alt="Bootstrap" width="45">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
@@ -35,13 +35,13 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="firstAux-tab" data-bs-toggle="tab" data-bs-target="#firstAux-tab-pane"
                 type="button" role="tab" aria-controls="firstAux-tab-pane" aria-selected="false">
-                Weight sensor
+                Oscilloscope
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="secondAux-tab" data-bs-toggle="tab" data-bs-target="#secondAux-tab-pane"
                 type="button" role="tab" aria-controls="secondAux-tab-pane" aria-selected="false" disabled>
-                Electromagnetic brake sensor
+                Single-phase power quality analyzers
               </button>
             </li>
           </ul>
@@ -66,7 +66,7 @@
       <div th:insert="~{fragments/main-tab/tab :: tab-MCUconnect}"></div>
     </div>
     <div class="tab-pane fade" id="firstAux-tab-pane" role="tabpanel" aria-labelledby="firstAux-tab" tabindex="0">
-      <div th:insert="~{fragments/firstAux-tab/tab :: tab-weightSensor}"></div>
+      <div th:insert="~{fragments/firstAux-tab/tab :: tab-oscilloscope}"></div>
     </div>
     <div class="tab-pane fade" id="secondAux-tab-pane" role="tabpanel" aria-labelledby="secondAux-tab" tabindex="0">
       <!-- <div th:insert="~{fragments/secondAux-tab/tab :: tab-}"></div> -->

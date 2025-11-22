@@ -17,7 +17,7 @@ spring:
 communicator-with-mcu-settings:
   default-serial-port-settings:
     name:
-    baudRate: 9600
+    baudRate: 115200
     dataBits: 8
     stopBits: 1
     parity: 0

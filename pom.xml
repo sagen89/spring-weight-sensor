@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mycompany</groupId>
-	<artifactId>spring-weight-sensor</artifactId>
+	<artifactId>spring-PCScope</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-weight-sensor</name>
+	<name>spring-PCScope</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
